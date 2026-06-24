@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti</title>
+
+<!--
+  ============================================================
+  PÁGINA PARA TU NOVIA — GUÍA RÁPIDA DE EDICIÓN
+  ============================================================
+  Este proyecto tiene 3 archivos:
+    - index.html  -> estructura y contenido (este archivo)
+    - style.css   -> colores, tipografía y animaciones CSS
+    - script.js   -> animación de revelado al hacer scroll
+
+  Busca los bloques marcados con "EDITA AQUÍ" para personalizar:
+
+  1. Nombres y frase del inicio        -> sección #hero (aquí abajo)
+  2. Fotos de la galería               -> sección #galeria (aquí abajo)
+  3. Las 5 canciones (URLs de YouTube) -> sección #canciones (aquí abajo)
+  4. La carta para ella                -> sección #carta (aquí abajo)
+  5. Colores generales                 -> bloque :root en style.css
+
+  No necesitas tocar nada más para que funcione. Todo lo demás
+  es estructura y animación.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Aquí se conecta el archivo de estilos -->
+<link rel="stylesheet" href="style.css">
+
+<!-- GSAP: librería de animación que usamos para las transiciones
+     de scroll y los corazones flotantes del hero. Se carga desde
+     un CDN público, no necesitas instalar nada. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ================================================
+       1. HERO / PORTADA   (EDITA AQUÍ)
+       ================================================
+       Cambia los nombres y la frase por lo que quieras.
+  -->
+  <section class="hero">
+    <!-- Los corazones flotantes se generan automáticamente desde
+         script.js. Si quieres cambiar la cantidad, busca
+         CANTIDAD_CORAZONES en script.js -->
+    <div class="hero-floaters" id="hero-floaters" aria-hidden="true"></div>
+
+    <span class="hero-eyebrow">Para ti</span>
+    <h1 class="hero-titulo">Luis <span class="amp">&amp;</span> Mi niña ♥</h1>
+    <p class="hero-frase">
+      Un poco de las cosas que me gustan de ti mi amor
+    </p>
+
+    <div class="scroll-indicador">
+      <span>Desliza</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================================================
+       2. GALERÍA DE FOTOS   (EDITA AQUÍ)
+       ================================================
+       Reemplaza cada src="..." con el link de tus fotos.
+       Cambia el texto en <p class="polaroid-caption">
+       por la descripción de cada foto.
+  -->
+  <section id="galeria" class="seccion">
+    <div class="seccion-cabecera reveal">
+      <span class="seccion-eyebrow">Nuestros momentos</span>
+      <h2 class="seccion-titulo">Mis fotos favoritas</h2>
+      <p class="seccion-sub">Todas mis fotos contigo son increibles</p>
+    </div>
+
+    <div class="galeria-grid">
+      <div class="polaroid reveal-rot">
+        <img src="foto1.jpg" alt="Foto 1">
+        <p class="polaroid-caption">nuestro primer día</p>
+      </div>
+      <div class="polaroid reveal-rot">
+        <img src="foto2.jpg" alt="Foto 2">
+        <p class="polaroid-caption">esa tarde de risas</p>
+      </div>
+      <div class="polaroid reveal-rot">
+        <img src="foto3.jpg" alt="Foto 3">
+        <p class="polaroid-caption">el viaje que no olvido</p>
+      </div>
+      <div class="polaroid reveal-rot">
+        <img src="foto4.jpg" alt="Foto 4">
+        <p class="polaroid-caption">domingo cualquiera</p>
+      </div>
+  </section>
+
+  <!-- ================================================
+       3. NUESTRAS CANCIONES   (EDITA AQUÍ)
+       ================================================
+       Para cada canción:
+       1. Cambia "Nombre de la canción — Artista" 
+       2. Cambia la nota (texto en cursiva)
+       3. En el href="..." pega el link de YouTube
+          Ejemplo: href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+       
+       ⭐ Los botones abren YouTube en una pestaña nueva
+          (evita problemas de bloqueo de iframes)
+  -->
+  <section id="canciones" class="seccion seccion-alt">
+    <div class="seccion-cabecera reveal">
+      <span class="seccion-eyebrow">Nuestras canciones</span>
+      <h2 class="seccion-titulo">5 canciones nuestras</h2>
+      <p class="seccion-sub">Las que siempre me recuerdan a ti mi niña ♥</p>
+    </div>
+
+    <div class="canciones-lista">
+
+      <div class="cancion-card reveal">
+        <span class="cancion-numero">01</span>
+        <div class="cancion-info">
+          <span class="cancion-titulo">Nombre de la canción — Artista</span>
+          <span class="cancion-nota">La primera que conecto con nosotros</span>
+          <a href="https://www.youtube.com/watch?v=i9UDD6zyCGs" target="_blank" rel="noopener" class="cancion-boton">
+            ▶ Escuchar en YouTube
+          </a>
+        </div>
+      </div>
+
+      <div class="cancion-card reveal">
+        <span class="cancion-numero">02</span>
+        <div class="cancion-info">
+          <span class="cancion-titulo">Nombre de la canción — Artista</span>
+          <span class="cancion-nota">Una que te mostre yo</span>
+          <a href="https://www.youtube.com/watch?v=yN6OQncqqI0" target="_blank" rel="noopener" class="cancion-boton">
+            ▶ Escuchar en YouTube
+          </a>
+        </div>
+      </div>
+
+      <div class="cancion-card reveal">
+        <span class="cancion-numero">03</span>
+        <div class="cancion-info">
+          <span class="cancion-titulo">Nombre de la canción — Artista</span>
+          <span class="cancion-nota">La primera que escuchamos juntos</span>
+          <a href="https://www.youtube.com/watch?v=P2INIp4Ic1Q" target="_blank" rel="noopener" class="cancion-boton">
+            ▶ Escuchar en YouTube
+          </a>
+        </div>
+      </div>
+
+      <div class="cancion-card reveal">
+        <span class="cancion-numero">04</span>
+        <div class="cancion-info">
+          <span class="cancion-titulo">Nombre de la canción — Artista</span>
+          <span class="cancion-nota">La que nos da paz</span>
+          <a href="https://www.youtube.com/watch?v=9zashhoQP1c" target="_blank" rel="noopener" class="cancion-boton">
+            ▶ Escuchar en YouTube
+          </a>
+        </div>
+      </div>
+
+      <div class="cancion-card reveal">
+        <span class="cancion-numero">05</span>
+        <div class="cancion-info">
+          <span class="cancion-titulo">Nombre de la canción — Artista</span>
+          <span class="cancion-nota">La que nos hacia sentir invencibles</span>
+          <a href="https://www.youtube.com/watch?v=IdneKLhsWOQ" target="_blank" rel="noopener" class="cancion-boton">
+            ▶ Escuchar en YouTube
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       4. LA CARTA   (EDITA AQUÍ)
+       ================================================
+       Escribe lo que quieras dentro del bloque
+       <div class="carta-texto">. Los saltos de línea
+       se respetan automáticamente.
+  -->
+  <section id="carta" class="seccion">
+    <div class="seccion-cabecera reveal">
+      <span class="seccion-eyebrow">Lo que quiero decirte</span>
+      <h2 class="seccion-titulo">Una carta para ti</h2>
+    </div>
+
+    <div class="carta-contenedor reveal">
+      <div class="carta-texto">Aquí va tu carta.
+
+Gracias mi niña por ser tu y siempre tu, te amo con todo mi corazon
+nunca me sera suficiente la forma de decirte que gracias por estar
+en mi vida, eres la niña de mis sueños que amo con todo mi corazon.
+
+No se realmente que he hecho yo para merecerte pero me encanta amarte,
+admirarte, cuidarte, hacerte feliz mi niña. En un futuro en el que 
+tu y yo estemos juntos, te hare la niña mas feliz del universo, cumpliremos
+nuestros sueños juntos, y que alegria sera de verdad eso. Te amo con todo mi
+corazon y nuevamente...Gracias por formar parte de mi vida,eres tu la personita
+que le da un color precioso, gracias mi princesa hermosa, te amo ahora y siempre.
+
+Muchos Besitos</div>
+      <p class="carta-firma">— Luis</p>
+    </div>
+  </section>
+
+  <!-- ================================================
+       5. CIERRE  (EDITA AQUÍ si quieres cambiar)
+       ================================================ -->
+  <section class="cierre reveal">
+    <p>Gracias por ser tú, siempre</p>
+    <div class="corazon">♡</div>
+  </section>
+
+  <footer>Te adado mucho mi amor ♥</footer>
+
+  <!-- Aquí se conecta el archivo de animación de scroll -->
+  <script src="script.js"></script>
+
+</body>
+</html>
