@@ -1,0 +1,387 @@
+/* ============================================================
+   ESTILOS — Página para tu novia
+   ============================================================
+   IMPORTANTE: Este CSS define el ESTADO INICIAL OCULTO de los
+   elementos que GSAP va a animar. GSAP solo anima HACIA
+   visible (opacity: 1), nunca intenta ocultar. Si GSAP falla,
+   el timeout de 1.5s en script.js activa la clase 'sin-animacion'
+   que fuerza que todo aparezca con opacity: 1 !important.
+   ============================================================ */
+
+/* ================================================
+     1. VARIABLES DE COLOR Y TIPOGRAFÍA (EDITA AQUÍ)
+     ================================================
+     Cambia estos valores si quieres otra paleta.
+     Todo el sitio usa estas variables, así que un
+     cambio aquí se refleja en toda la página. */
+     :root{
+      --crema:        #FDF6F0; /* fondo principal */
+      --crema-osc:    #F7E9E0; /* fondo secciones alternas */
+      --durazno:      #F2A07B; /* acento cálido */
+      --rosa:         #E8B4BC; /* acento suave */
+      --vino:         #8B4049; /* texto fuerte / títulos */
+      --dorado:       #C9974C; /* detalles, líneas, iconos */
+      --carbon:       #3D2C2E; /* texto de cuerpo */
+      --blanco-cinta: #FFFDF9; /* "papel" de polaroids y tarjetas */
+  
+      --fuente-display: "Cormorant Garamond", serif;
+      --fuente-cuerpo:   "Quicksand", sans-serif;
+    }
+  
+    *{ margin:0; padding:0; box-sizing:border-box; }
+  
+    html{ scroll-behavior:smooth; }
+  
+    body{
+      background:var(--crema);
+      color:var(--carbon);
+      font-family:var(--fuente-cuerpo);
+      overflow-x:hidden;
+    }
+  
+    /* Respeta a quienes prefieren menos animación */
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{
+        animation-duration:0.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:0.01ms !important;
+        scroll-behavior:auto !important;
+      }
+    }
+  
+    h1,h2,h3{
+      font-family:var(--fuente-display);
+      font-weight:600;
+      color:var(--vino);
+    }
+  
+    /* ================================================
+       RED DE SEGURIDAD: Si GSAP falla en los primeros
+       1.5s, script.js agrega la clase 'sin-animacion'
+       que fuerza que TODO sea visible con opacity 1.
+       ================================================ */
+    .sin-animacion .hero-eyebrow,
+    .sin-animacion .hero-titulo,
+    .sin-animacion .hero-frase,
+    .sin-animacion .scroll-indicador,
+    .sin-animacion .seccion-cabecera,
+    .sin-animacion .polaroid,
+    .sin-animacion .cancion-card,
+    .sin-animacion .carta-contenedor,
+    .sin-animacion .cierre {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  
+    /* ================================================
+       ESTADO INICIAL: Elementos que se animarán
+       están ocultos por CSS (opacity: 0). GSAP solo
+       hace .to(opacity: 1), nunca .from().
+       ================================================ */
+    .hero-eyebrow{ opacity: 0; }
+    .hero-titulo{ opacity: 0; }
+    .hero-frase{ opacity: 0; }
+    .scroll-indicador{ opacity: 0; }
+    .seccion-cabecera{ opacity: 0; }
+    .polaroid{ opacity: 0; }
+    .cancion-card{ opacity: 0; }
+    .carta-contenedor{ opacity: 0; }
+    .cierre{ opacity: 0; }
+  
+    /* ================================================
+       2. HERO / PORTADA
+       ================================================ */
+    .hero{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:2rem;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(242,160,123,0.25), transparent 55%),
+        radial-gradient(circle at 80% 75%, rgba(232,180,188,0.30), transparent 55%),
+        var(--crema);
+      overflow:hidden;
+    }
+  
+    .hero-floaters{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .floater{
+      position:absolute;
+      color:var(--rosa);
+      will-change:transform, opacity;
+    }
+    .floater.floater-durazno{ color:var(--durazno); }
+    .floater.floater-dorado{ color:var(--dorado); opacity:0.5; }
+  
+    .hero-eyebrow{
+      font-family:var(--fuente-cuerpo);
+      letter-spacing:0.18em;
+      text-transform:uppercase;
+      font-size:0.78rem;
+      color:var(--dorado);
+      margin-bottom:1.1rem;
+    }
+  
+    .hero-titulo{
+      font-size:clamp(2.6rem, 8vw, 5.2rem);
+      line-height:1.05;
+      margin-bottom:1rem;
+    }
+    .hero-titulo .amp{
+      color:var(--durazno);
+      font-style:italic;
+    }
+  
+    .hero-frase{
+      max-width:36ch;
+      font-size:1.1rem;
+      color:var(--carbon);
+      opacity:0.85;
+      margin-bottom:2.5rem;
+    }
+  
+    .scroll-indicador{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:0.5rem;
+      color:var(--vino);
+      font-size:0.75rem;
+      letter-spacing:0.12em;
+      text-transform:uppercase;
+      animation:rebote 2.2s ease-in-out infinite;
+    }
+    @keyframes rebote{
+      0%,100%{ transform:translateY(0); }
+      50%{ transform:translateY(10px); }
+    }
+    .scroll-indicador svg{ width:18px; height:18px; }
+  
+    /* ================================================
+       SECCIONES GENERALES
+       ================================================ */
+    .seccion{
+      position:relative;
+      padding:7rem 1.5rem;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .seccion-alt{
+      background:var(--crema-osc);
+    }
+    .seccion-cabecera{
+      text-align:center;
+      max-width:560px;
+      margin:0 auto 3.5rem;
+    }
+    .seccion-eyebrow{
+      font-size:0.75rem;
+      letter-spacing:0.16em;
+      text-transform:uppercase;
+      color:var(--dorado);
+      margin-bottom:0.6rem;
+      display:block;
+    }
+    .seccion-titulo{ font-size:clamp(2rem,4.5vw,2.8rem); }
+    .seccion-sub{
+      margin-top:0.8rem;
+      color:var(--carbon);
+      opacity:0.75;
+      font-size:1rem;
+    }
+  
+    /* ================================================
+       3. GALERÍA DE FOTOS (estilo polaroid)
+       ================================================ */
+    .galeria-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+      gap:2.2rem 2.6rem;
+      padding:0 1rem;
+    }
+  
+    .polaroid{
+      background:var(--blanco-cinta);
+      padding:0.9rem 0.9rem 2.4rem;
+      box-shadow:0 14px 30px -10px rgba(61,44,46,0.25);
+      border-radius:2px;
+      position:relative;
+    }
+    .polaroid img{
+      width:100%;
+      aspect-ratio:1/1;
+      object-fit:cover;
+      display:block;
+      filter:saturate(0.96) contrast(1.02);
+    }
+    .polaroid-caption{
+      position:absolute;
+      bottom:0.7rem; left:0; right:0;
+      text-align:center;
+      font-family:var(--fuente-display);
+      font-style:italic;
+      color:var(--vino);
+      font-size:1rem;
+    }
+    .polaroid::before{
+      content:"";
+      position:absolute;
+      top:-10px; left:50%;
+      transform:translateX(-50%) rotate(-3deg);
+      width:54px; height:20px;
+      background:rgba(242,160,123,0.55);
+      box-shadow:0 2px 4px rgba(0,0,0,0.08);
+    }
+  
+    .polaroid:nth-child(1){ --rot:-3deg; }
+    .polaroid:nth-child(2){ --rot:2deg; }
+    .polaroid:nth-child(3){ --rot:-1.5deg; }
+    .polaroid:nth-child(4){ --rot:3deg; }
+    .polaroid:nth-child(5){ --rot:-2deg; }
+    .polaroid:nth-child(6){ --rot:1.5deg; }
+  
+    .polaroid:hover{
+      transform:translateY(-6px) rotate(0deg) scale(1.03) !important;
+      transition:transform 0.35s ease;
+      z-index:2;
+    }
+  
+    /* ================================================
+       4. SECCIÓN DE CANCIONES
+       ================================================ */
+    .canciones-lista{
+      display:grid;
+      gap:1.1rem;
+    }
+    .cancion-card{
+      background:var(--blanco-cinta);
+      border:1px solid rgba(201,151,76,0.25);
+      border-radius:14px;
+      padding:1rem 1.2rem;
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:1rem;
+      align-items:center;
+      transition:box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .cancion-card:hover{
+      box-shadow:0 12px 24px -12px rgba(139,64,73,0.25);
+      transform:translateY(-2px);
+    }
+    .cancion-numero{
+      font-family:var(--fuente-display);
+      font-size:1.6rem;
+      color:var(--rosa);
+      min-width:2.2rem;
+      text-align:center;
+    }
+    .cancion-info{
+      display:flex;
+      flex-direction:column;
+      gap:0.65rem;
+    }
+    .cancion-titulo{
+      font-weight:600;
+      color:var(--vino);
+      font-size:1.02rem;
+    }
+    .cancion-nota{
+      font-size:0.88rem;
+      color:var(--carbon);
+      opacity:0.7;
+      font-style:italic;
+    }
+    .cancion-boton{
+      display:inline-block;
+      margin-top:0.8rem;
+      padding:0.6rem 1.2rem;
+      background:linear-gradient(135deg, var(--durazno), var(--rosa));
+      color:white;
+      text-decoration:none;
+      border-radius:6px;
+      font-size:0.9rem;
+      font-weight:500;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow:0 4px 12px rgba(242,160,123,0.3);
+    }
+    .cancion-boton:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(242,160,123,0.4);
+    }
+    .cancion-boton:active{
+      transform:translateY(0);
+    }
+  
+    /* ================================================
+       5. SECCIÓN DE LA CARTA
+       ================================================ */
+    .carta-contenedor{
+      background:var(--blanco-cinta);
+      border-radius:6px;
+      padding:clamp(2rem,5vw,4rem);
+      box-shadow:0 20px 50px -20px rgba(61,44,46,0.3);
+      position:relative;
+    }
+    .carta-contenedor::before{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0; height:6px;
+      background:linear-gradient(90deg, var(--durazno), var(--rosa), var(--dorado));
+      border-radius:6px 6px 0 0;
+    }
+    .carta-texto{
+      font-family:var(--fuente-display);
+      font-size:clamp(1.1rem,2.4vw,1.4rem);
+      line-height:1.8;
+      color:var(--carbon);
+      white-space:pre-line;
+    }
+    .carta-firma{
+      margin-top:2rem;
+      text-align:right;
+      font-family:var(--fuente-display);
+      font-style:italic;
+      font-size:1.3rem;
+      color:var(--vino);
+    }
+  
+    /* ================================================
+       CIERRE
+       ================================================ */
+    .cierre{
+      text-align:center;
+      padding:6rem 1.5rem 5rem;
+    }
+    .cierre p{
+      font-family:var(--fuente-display);
+      font-size:1.4rem;
+      color:var(--vino);
+      font-style:italic;
+    }
+    .cierre .corazon{
+      margin-top:1rem;
+      font-size:1.6rem;
+      color:var(--durazno);
+    }
+  
+    footer{
+      text-align:center;
+      font-size:0.75rem;
+      color:var(--carbon);
+      opacity:0.5;
+      padding-bottom:2rem;
+    }
+  
+    @media (max-width: 600px){
+      .seccion{ padding:4.5rem 1.2rem; }
+      .cancion-card{ grid-template-columns:1fr; }
+      .cancion-numero{ text-align:left; }
+    }
